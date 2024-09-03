@@ -1,11 +1,9 @@
 <?php
-    // URL da API para os standings do Brasileirão Série A 2024
     $apiUrl = 'https://api.football-data.org/v4/competitions/2013/standings?season=2024';
     
-    // Sua chave de API
     $apiKey = 'cc0c0d93397244dfa8c46b46f28a8f73';
     
-    // Configuração do contexto para a requisição HTTP
+    // Configuração para a requisição HTTP
     $context = stream_context_create([
         'http' => [
             'method' => 'GET',
@@ -16,13 +14,13 @@
         ]
     ]);
     
-    // Fazendo a requisição à API
+    // Requisição à API
     $response = file_get_contents($apiUrl, false, $context);
     
-    // Decodificando a resposta JSON para um array PHP
+    // Decodificando o JSON para um array PHP
     $data = json_decode($response, true);
     
-    // Verificação para evitar erro se a API retornar nulo ou erro
+    // Verificação de erro na API
     if ($data && isset($data['standings'][0]['table'])) {
         $teams = $data['standings'][0]['table'];
     } else {
